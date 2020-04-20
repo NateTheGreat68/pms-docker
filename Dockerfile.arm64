@@ -18,6 +18,7 @@ RUN \
       xmlstarlet \
       uuid-runtime \
       unrar \
+      rsync \
     && \
 
 # Fetch and extract S6 overlay
@@ -31,6 +32,7 @@ RUN \
 # Setup directories
     mkdir -p \
       /config \
+      /config-persistent \
       /transcode \
       /data \
     && \
@@ -43,7 +45,7 @@ RUN \
     rm -rf /var/tmp/*
 
 EXPOSE 32400/tcp 3005/tcp 8324/tcp 32469/tcp 1900/udp 32410/udp 32412/udp 32413/udp 32414/udp
-VOLUME /config /transcode
+VOLUME /config /config-persistent /transcode
 
 ENV CHANGE_CONFIG_DIR_OWNERSHIP="true" \
     HOME="/config"

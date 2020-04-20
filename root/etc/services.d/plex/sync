@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bash
+
+echo "Syncing config directory."
+home="$(echo ~plex)"
+
+if [ -n "$SYNC-PERSISTENT" ] && [[ "$SYNC-PERSISTENT" == 'TRUE' ]] && [ ! -f "$home/.syncing" ]; then
+  touch "$home/.syncing"
+  rsync -av "$home" "${home}-persistent"
+  rm "$home/.syncing"
+fi
