@@ -6,6 +6,6 @@ status_file="/etc/services.d/plex/.syncing"
 
 # Environment variable $SYNC-PERSISTENT must be set
 if [ ! -z ${SYNC-PERSISTENT+x} ]; then
-  flcok -n "$status_file" rsync -av "$home/" "${home}-persistent"
+  flock -n "$status_file" rsync -av "$home/" "${home}-persistent"
   rm "$status_file"
 fi
