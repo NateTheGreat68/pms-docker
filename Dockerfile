@@ -19,6 +19,7 @@ RUN \
       uuid-runtime \
       unrar \
       rsync \
+      cron \
     && \
 
 # Fetch and extract S6 overlay
