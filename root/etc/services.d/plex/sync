@@ -2,9 +2,10 @@
 
 echo "Syncing config directory."
 home="$(echo ~plex)"
+status_file="/etc/services.d/plex/.syncing"
 
-if [ -n "$SYNC-PERSISTENT" ] && [[ "$SYNC-PERSISTENT" == 'TRUE' ]] && [ ! -f "$home/.syncing" ]; then
-  touch "$home/.syncing"
-  rsync -av "$home/" "${home}-persistent"
-  rm "$home/.syncing"
+# Environment variable $SYNC-PERSISTENT must be set
+if [ ! -z ${SYNC-PERSISTENT+x} ]; then
+  flcok -n "$status_file" rsync -av "$home/" "${home}-persistent"
+  rm "$status_file"
 fi
