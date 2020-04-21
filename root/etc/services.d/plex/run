@@ -3,7 +3,7 @@
 echo "Starting Plex Media Server."
 home="$(echo ~plex)"
 
-rsync -av "${home}-persistent/" "$home"
+rsync -a --progress "${home}-persistent/" "$home"
 
 export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="${PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR:-${home}/Library/Application Support}"
 export PLEX_MEDIA_SERVER_HOME=/usr/lib/plexmediaserver
