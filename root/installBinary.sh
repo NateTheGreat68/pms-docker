@@ -20,3 +20,10 @@ elif [ "${TAG}" != "beta" ] && [ "${TAG}" != "public" ]; then
   echo "Attempting to install: ${remoteVersion}"
   installFromUrl "${remoteFile}"
 fi
+
+# Add to crontab
+if crontab -l 2> /dev/null; then
+  echo "$(echo '*/5 * * * * /etc/services.d/plex/sync'; crontab -l)" | crontab -
+else
+  echo '*/5 * * * * /etc/services.d/plex/sync' | crontab -
+fi
