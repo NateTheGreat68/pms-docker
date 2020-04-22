@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bash
+
+rsync -av "$1/" "$2" &> /dev/null

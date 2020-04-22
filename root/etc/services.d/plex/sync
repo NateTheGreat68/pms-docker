@@ -1,11 +1,7 @@
 #!/usr/bin/with-contenv bash
 
-echo "Syncing config directory."
-home="$(echo ~plex)"
-status_file="/etc/services.d/plex/.syncing"
-
-# Environment variable $SYNC-PERSISTENT must be set
-if [ ! -z ${SYNC-PERSISTENT+x} ]; then
-  flock -n "$status_file" rsync -av "$home/" "${home}-persistent"
-  rm "$status_file"
+# Environment variable $SYNC_PERSISTENT must be set
+if [ ! -z ${SYNC_PERSISTENT+x} ]; then
+  flock -n "$SYNC_STATUS_FILE" /etc/services.d/plex/sync_log "$HOME" "$HOME_PERSISTENT"
+  rm "$SYNC_STATUS_FILE"
 fi
