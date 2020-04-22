@@ -23,9 +23,9 @@ fi
 
 # Add to crontab
 if crontab -l 2> /dev/null; then
-  echo "$(echo '*/5 * * * * /etc/services.d/plex/sync'; crontab -l)" | crontab -
+  echo "$(echo '*/1 * * * * /etc/services.d/plex/sync'; crontab -l)" | crontab -
 else
-  echo '*/5 * * * * /etc/services.d/plex/sync' | crontab -
+  echo '*/1 * * * * /etc/services.d/plex/sync' | crontab -
 fi
 
 # Start cron
