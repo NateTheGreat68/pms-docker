@@ -27,3 +27,6 @@ if crontab -l 2> /dev/null; then
 else
   echo '*/5 * * * * /etc/services.d/plex/sync' | crontab -
 fi
+
+# Start cron
+service cron start
