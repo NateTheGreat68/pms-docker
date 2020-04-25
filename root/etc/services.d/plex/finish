@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv bash
+
+echo "Closing out Plex Media Server."
+
+flock "$SYNC_STATUS_FILE" /usr/local/bin/sync_and_log "$HOME" "$HOME_PERSISTENT"
