@@ -1,7 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-# Environment variable $SYNC_PERSISTENT must be set
-if [ ! -z ${SYNC_PERSISTENT+x} ]; then
-  flock -n "$SYNC_STATUS_FILE" /etc/services.d/plex/sync_log "$HOME" "$HOME_PERSISTENT"
-  rm "$SYNC_STATUS_FILE"
-fi
