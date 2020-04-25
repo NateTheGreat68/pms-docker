@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 # Loop and sync if $SYNC_PERSISTENT is set
-if [ ! -z ${SYNC_PERSISTENT+x} ]; then
+if /usr/local/bin/home_persistent_mounted; then
   while :
   do
     flock -n "$SYNC_STATUS_FILE" /usr/local/bin/sync_and_log "$HOME" "$HOME_PERSISTENT"
