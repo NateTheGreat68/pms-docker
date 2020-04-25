@@ -1,10 +1,12 @@
 #!/usr/bin/with-contenv bash
 
-echo "Starting Plex Media Server."
-
 if /usr/local/bin/home_persistent_mounted; then
+  echo "Syncing persistent files to the local installation."
   flock "$SYNC_STATUS_FILE" /usr/local/bin/sync_and_log "$HOME_PERSISTENT" "$HOME"
+  echo "Sync complete."
 fi
+
+echo "Starting Plex Media Server."
 
 export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="${PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR:-${HOME}/Library/Application Support}"
 export PLEX_MEDIA_SERVER_HOME=/usr/lib/plexmediaserver
