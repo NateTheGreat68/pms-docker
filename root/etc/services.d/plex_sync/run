@@ -1,15 +1,7 @@
 #!/usr/bin/with-contenv bash
 
-# Loop and sync if $SYNC_PERSISTENT is set
-if /usr/local/bin/home_persistent_mounted; then
-  while :
-  do
-    flock -n "$SYNC_STATUS_FILE" /usr/local/bin/sync_and_log "$HOME" "$HOME_PERSISTENT"
-    sleep 60s
-  done
-else
-  while :
-  do
-    sleep 30d
-  done
-fi
+while :
+do
+  flock -n "$SYNC_STATUS_FILE" /usr/local/bin/sync_and_log "$HOME" "$HOME_PERSISTENT"
+  sleep 60s
+done
