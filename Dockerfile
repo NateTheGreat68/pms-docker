@@ -9,7 +9,7 @@ ENV TERM="xterm" LANG="C.UTF-8" LC_ALL="C.UTF-8"
 ENV CHANGE_CONFIG_DIR_OWNERSHIP="true"
 ENV HOME="/config" \
     HOME_PERSISTENT="/config_persistent" \
-    SYNC_STATUS_FILE="/etc/services.d/plex_sync/.syncing" \
+    SYNC_STATUS_FILE="/etc/services.d/plex_sync/data/syncing" \
     SYNC_LOG_PATH="/var/log/plex_sync"
 
 ENTRYPOINT ["/init"]
