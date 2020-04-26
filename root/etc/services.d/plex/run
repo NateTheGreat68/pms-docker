@@ -1,9 +1,26 @@
 #!/usr/bin/with-contenv bash
 
 if /usr/local/bin/home_persistent_mounted; then
-  echo "Syncing persistent files to the local installation."
-  flock "$SYNC_STATUS_FILE" /usr/local/bin/sync_and_log "$HOME_PERSISTENT" "$HOME"
-  echo "Sync to local installation complete; starting persistent sync service."
+  # Some git commands won't work without these.
+  git config --global user.name "plex"
+  git config --global user.email "no-reply@example.com"
+  if [ -d "$HOME_PERSISTENT/.git" ]; then
+    echo "Persistent config repo found; copying files to local installation."
+  else
+    echo "No repo found for the persistent config; creating."
+    # Create the repo and make an initial commit.
+    git -C "$HOME_PERSISTENT" init . &> /dev/null && \
+        git -C "$HOME_PERSISTENT" add -A . &> /dev/null && \
+        git -C "$HOME_PERSISTENT" commit --allow-empty -m "clean ${date}" &> /dev/null
+    echo "Repo created; copying files to local installation."
+  fi
+  # Remove the dirty files from the repo.
+  git -C "$HOME_PERSISTENT" reset --hard HEAD &> /dev/null && \
+      git -C "$HOME_PERSISTENT" clean -fdx &> /dev/null
+  # Copy the files.
+  /usr/local/bin/sync_and_log "$HOME_PERSISTENT" "$HOME"
+  # Start the sync service.
+  echo "Files copied to local installation; starting sync service."
   s6-svc -u "$(ps aux | awk '{ if ( $2 == 1 ) print $NF }')/plex_sync"
 fi
 

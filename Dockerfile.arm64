@@ -24,6 +24,7 @@ RUN \
       uuid-runtime \
       unrar \
       rsync \
+      git \
     && \
 
 # Fetch and extract S6 overlay

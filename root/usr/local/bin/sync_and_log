@@ -1,3 +1,3 @@
 #!/usr/bin/with-contenv bash
 
-rsync -av "$1/" "$2" | s6-log T "$SYNC_LOG_PATH"
+rsync -av --exclude="/.git*" "$1/" "$2" | s6-log T "$SYNC_LOG_PATH"
