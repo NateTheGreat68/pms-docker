@@ -3,10 +3,8 @@
 if /usr/local/bin/home_persistent_mounted; then
   echo "Syncing persistent files to the local installation."
   flock "$SYNC_STATUS_FILE" /usr/local/bin/sync_and_log "$HOME_PERSISTENT" "$HOME"
-  echo "Sync to local installation complete."
-  echo "Starting persistent sync service."
-  services_dir="$(ps aux | awk '{ if ( $2 == 1 ) print $NF }'"
-  s6-svc -u "$services_dir/plex_sync"
+  echo "Sync to local installation complete; starting persistent sync service."
+  s6-svc -u "$(ps aux | awk '{ if ( $2 == 1 ) print $NF }')/plex_sync"
 fi
 
 echo "Starting Plex Media Server."
