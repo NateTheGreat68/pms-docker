@@ -4,4 +4,6 @@ echo "Closing out Plex Media Server."
 
 if /usr/local/bin/home_persistent_mounted; then
   flock "$SYNC_STATUS_FILE" /usr/local/bin/sync_and_log "$HOME" "$HOME_PERSISTENT"
+  git -C "$HOME_PERSISTENT" add -A . &> /dev/null && \
+      git -C "$HOME_PERSISTENT" commit --amend --allow-empty -m "clean $(date)" &> /dev/null
 fi
